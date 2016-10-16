@@ -14,17 +14,17 @@ let config = Object.assign({}, baseConfig, {
   cache: false,
   devtool: 'sourcemap',
   plugins: [
-    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.DedupePlugin(),   //用来检测相似的文件或者文件中重复的内容，然后将这些冗余在output中消除掉
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"production"'
     }),
     new BowerWebpackPlugin({
       searchResolveModulesDirectories: false
     }),
-    new webpack.optimize.UglifyJsPlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.AggressiveMergingPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.optimize.UglifyJsPlugin(),  //用来压缩输出的js代码
+    new webpack.optimize.OccurenceOrderPlugin(), //按照引用频率来排序各个模块，引用的越频繁，bundle的ID越小，以便达到减小文件大小的效果
+    new webpack.optimize.AggressiveMergingPlugin(), //用来优化生成的代码chunk，合并相似的chunk，提取代码
+    new webpack.NoErrorsPlugin()  //用来保证编译过程中不会出错
   ],
   module: defaultSettings.getDefaultModules()
 });
